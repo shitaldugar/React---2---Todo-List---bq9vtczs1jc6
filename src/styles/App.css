@@ -14,3 +14,37 @@ button{
 .bg-pink{
 	background-color:pink;
 }
+#main{
+    background-image:url("https://thumbs.dreamstime.com/z/blank-note-papers-pencil-clipboard-white-marble-background-copy-space-text-top-view-148625476.jpg");
+    height: 900px;
+}
+#task{
+    margin-left:42%;
+    padding:10px;
+    margin-right:10px;
+  
+}
+#btn{
+    padding:10px;
+}
+.list{
+    font-size: 24px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:green;
+    float:left;
+    
+   
+}
+#todo{
+    margin-left: 42%;
+    padding: 10px;
+}
+#box{
+    border-bottom:1px solid grey;
+    padding:10px;
+    width:40%;
+}
+   
+#del{
+    margin-left:70%;
+}

@@ -1,73 +1,54 @@
 import React,{useState} from "react";
 import "./../styles/App.css";
+import Title from'./Title';
+import { v4 as uuid } from "uuid";
 
  function App() 
  {
 	const [todo, setTodo] = useState('');
     const [todoList, setTodoList] = useState([]);
-    const [editable, setEditable] = useState(null);
-    const [editText, setEditText] = useState('');
+    
 
     const handleChange = ({target}) => {
         setTodo(target.value);
     }
-
-    const addToDo = (e) => {
-        e.preventDefault();
-
-        if(todo != '') {
-            const myToDoList = todoList;
-            myToDoList.push(todo);
-            setTodoList(myToDoList);
-        } else {
-            alert("Blank Task");
+    const addToDo =()=>{
+        let item ={
+            id:uuid(),
+            title:todo
         }
-        setTodo('');
+
+    
+     setTodoList([...todoList,item])
+     setTodo("");
     }
 
-    const handleDelete = (myToDo) => {
-        const updatedList = todoList.filter((todo) => todo != myToDo);
+
+    const handleDelete = (id) => {
+        const updatedList = todoList.filter((todo) => todo.id !== id);
         setTodoList(updatedList);
-    }
-
-    const updateToDo = (myToDo) => {
-        const newList = todoList.map((todo) => {
-            if(todo == myToDo) {
-                if(editText != '') {
-                    todo = editText;
-                    return todo;
-                }
-            }
-            return todo;
-        });
-        setTodo('');
-        setEditText('');
-        setTodoList(newList);
-    }
+      };
  	return (
  	<div id="main">
-      <textarea id="task" onChange={handleChange} value={todo}/><br/>
+         <Title/>
+         <div>
+      <input id="task" onChange={handleChange} value={todo} placeholder="Enter your List"/>
             <button id="btn" onClick={addToDo}>Add Task </button>
+            </div>
+            <div id="todo">
 
-            {todoList.map((myToDo, index) => {
-                return(
-                    <li className="list" key={`todo${index}`}>
-                        {editable == myToDo ? 
-                            <textarea className="editTask" value={editText} onChange={(e) => setEditText(e.target.value)}/>
-                        : <span>{myToDo}</span>}
-                        
-                        {editable == myToDo ? 
-                        <button className="saveTask" onClick={() => updateToDo(myToDo)}>Save Task</button>
-                        : <button className="edit" onClick={() => {
-                            setEditable(myToDo);
-                            setEditText(myToDo);
-                        }}>Edit</button>
-                        }
-                        
-                        <button className="delete" onClick={() => handleDelete(myToDo)}>Delete</button>
-                    </li>
-                )
-            })}
+            {todoList.map((myToDo) => (
+                <div id="box">
+                    
+                <div className="list">{myToDo.title}</div>
+                <div onClick={()=>handleDelete(myToDo.id)}id="del">
+                <img width="25px"height="25px"src="https://cdn-icons.flaticon.com/png/512/3368/premium/3368864.png?token=exp=1637493709~hmac=1782aa00e05973129d4f37519f838b87"/>
+               </div>
+                </div>
+
+              
+            ))}
+            </div>
 
  	</div>
  	);
